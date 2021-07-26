@@ -1,11 +1,29 @@
 <!doctype html>
 
-<head>crate machine</head>
+<head>
+    <title>crate machine</title>
+</head>
 
 <body>
-    <canvas id="gameCanvas" width="1000" hight="800"></canvas>
-
+    <canvas id="gameCanvas" width="1000" height="800"></canvas>
 </body>
 <script>
+    var canvas, canvasContext;
+    
+    window.onload = function() {
+        canvas = document.getElementById('gameCanvas');
+        canvasContext = canvas.getContext('2d');
+        
+        setInterval(mainloop, 50 / 1000);
+    }
+
+    function mainloop() {
+        colorRect(0,0,canvas.width,canvas.height,'black');
+    }
+
+    function colorRect(x, y, w, h, c) {
+        canvasContext.fillStyle = c;
+        canvasContext.fillRect(x, y, w, h);
+    }
 
 </script>
