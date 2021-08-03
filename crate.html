@@ -9,16 +9,46 @@
 </body>
 <script>
     var canvas, canvasContext;
-    
+
     window.onload = function() {
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
-        
+
+        canvas.addEventListener('mousemove', function(evt) {
+
+            var mousePos = mouseAction(evt);
+            mouseX = mousePos.x;
+            mouseY = mousePos.y;
+
+        });
+
         setInterval(mainloop, 50 / 1000);
+
+
+
+
     }
 
+    var mouseX, mouseY;
+    
+    var buttonXpos = 100;
+    var buttonYpos = 200;
+
     function mainloop() {
-        colorRect(0,0,canvas.width,canvas.height,'black');
+        colorRect(0, 0, canvas.width, canvas.height, 'black');
+        colorRect(mouseX, mouseY, 10, 10, 'red');
+
+    }
+
+    function mouseAction(evt) {
+        var rect = canvas.getBoundingClientRect();
+        var root = document.documentElement;
+        mouseX = evt.clientX - rect.left - root.scrollLeft;
+        mouseY = evt.clientY - rect.top - root.scrollTop;
+        return {
+            x: mouseX,
+            y: mouseY
+        }
     }
 
     function colorRect(x, y, w, h, c) {
