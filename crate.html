@@ -13,6 +13,8 @@
     window.onload = function() {
         canvas = document.getElementById('gameCanvas');
         canvasContext = canvas.getContext('2d');
+        
+        document.addEventListener('mousedown',clicker);
 
         canvas.addEventListener('mousemove', function(evt) {
 
@@ -33,10 +35,27 @@
     
     var buttonXpos = 100;
     var buttonYpos = 200;
+    var B_SIZE = 20
+    var bColor = 'green';
+    
+    var leaver = new Image();
+    leaver.src = 'img/lever.jpg';
+    
+    var leaverXsrc = 0;
+    var leaverYsrc = 0;
+    const LEAVER_WIDTH = 98;
+    const LEAVER_HEIGHT = 400;
+    var leaverXpos = 300;
+    var leaverYpos = 300;
+    const LEAVER_WIDTH_D = 80;
+    const LEAVER_HEIGHT_D = 250;
 
     function mainloop() {
         colorRect(0, 0, canvas.width, canvas.height, 'black');
         colorRect(mouseX, mouseY, 10, 10, 'red');
+        colorRect(buttonXpos, buttonYpos, B_SIZE, B_SIZE,bColor);
+        
+        drawImg(leaver,leaverXsrc,leaverYsrc,LEAVER_WIDTH,LEAVER_HEIGHT,leaverXpos,leaverYpos,LEAVER_WIDTH_D,LEAVER_HEIGHT_D);
 
     }
 
@@ -50,10 +69,26 @@
             y: mouseY
         }
     }
+    
+    var counter = 0;
+    
+    function clicker(evt){
+        if(mouseX > leaverXpos && mouseX < leaverXpos + LEAVER_WIDTH_D && mouseY > leaverYpos && mouseY < leaverYpos + LEAVER_HEIGHT_D){
+            counter++
+            if(counter > 4){
+               counter = 0;
+            }
+            leaverXsrc = LEAVER_WIDTH * counter;
+        }
+    }
 
     function colorRect(x, y, w, h, c) {
         canvasContext.fillStyle = c;
         canvasContext.fillRect(x, y, w, h);
+    }
+    
+    function drawImg(src,sx,sy,sw,sh,dx,dy,dw,dh){
+        canvasContext.drawImage(src,sx,sy,sw,sh,dx,dy,dw,dh);
     }
 
 </script>
